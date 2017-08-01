@@ -31,6 +31,7 @@ public:
   int setTimes(vector<float> times);
   int setPins(vector<int> indexed_list);
   servoData popServo();
+  int reset();
 
   
 

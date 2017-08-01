@@ -118,11 +118,17 @@ int servoHandler::sortTimes() {
       }
     }
   }
+  iterator = 0;
   return 0;
 }
 
 int servoHandler::setPins(vector<int> indexed_list) {
   fixed_index_vector = indexed_list;
+  return 0;
+}
+
+int servoHandler::reset() {
+  iterator = 0;
   return 0;
 }
 
