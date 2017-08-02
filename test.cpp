@@ -12,16 +12,16 @@ int main(int argc, char **argv) {
   indexed_list[2] = 2;
   indexed_list[3] = 3;
 
-  servoHandler servohandler(4, indexed_list, 0.0,2.0);
+  servoHandler servohandler(4, indexed_list, 0.5,2.4);
 
-  angles[0] = 0;
+  angles[0] = 180;
   angles[1] = 170;
   angles[2] = 10;
   angles[3] = 60;
 
   cout<<"Ouput: "<<servohandler.setAngles(angles)<<endl;
 
-  for(int i = 0; i < 4; i++) {
+  for(int i = 0; i < 8; i++) {
     servo = servohandler.popServo();
     cout<<"Servo (pin): "<<servo.pin<<endl;
     cout<<"Angle: "<<servo.angle<<endl;
@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
   cout<<"Changing the pins of the servomotors"<<endl;
   servohandler.setPins(indexed_list);
   servohandler.setAngles(angles);
-  for(int i = 0; i < 4; i++) {
+  for(int i = 0; i < 8; i++) {
     servo = servohandler.popServo();
     cout<<"Servo (pin): "<<servo.pin<<endl;
     cout<<"Angle: "<<servo.angle<<endl;

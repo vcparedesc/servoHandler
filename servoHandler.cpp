@@ -47,9 +47,8 @@ int servoHandler::setAngles(vector<float> angles) {
   angle_vector = angles;
 
   for(int i = 0; i < nServos; i++) {
-    if(time_vector[i] >= MIN_ms && time_vector[i] <= MAX_ms) {
-      time_vector[i] = MIN_ms + (MAX_ms - MIN_ms) * (angle_vector[i] / 180.0);
-    }else {
+    time_vector[i] = MIN_ms + (MAX_ms - MIN_ms) * (angle_vector[i] / 180.0);
+    if(time_vector[i] < MIN_ms || time_vector[i] > MAX_ms) {
       return -1;
     }
   }
@@ -62,12 +61,10 @@ int servoHandler::setTimes(vector<float> times) {
   time_vector = times;
 
   for(int i = 0; i < nServos; i++) {
-    if(angle_vector[i] <= 180 && angle_vector[i] >= 0) {
-      angle_vector[i] = (time_vector[i] - MIN_ms) / (MAX_ms - MIN_ms) * 180;
-    }else{
+    angle_vector[i] = (time_vector[i] - MIN_ms) / (MAX_ms - MIN_ms) * 180;
+    if(angle_vector[i] > 180 || angle_vector[i] < 0) {
       return -1;
     }
-
   }
 
   sortTimes();
