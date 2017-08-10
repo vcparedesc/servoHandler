@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 
   angles[0] = 180;
   angles[1] = 170;
-  angles[2] = 10;
+  angles[2] = 60;
   angles[3] = 60;
 
   cout<<"Ouput: "<<servohandler.setAngles(angles)<<endl;

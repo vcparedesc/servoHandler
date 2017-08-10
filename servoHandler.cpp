@@ -95,15 +95,18 @@ int servoHandler::popPin() {
 
 servoData servoHandler::popServo() {
   servoData sData;
-  static float oldTime = 0;
+  static float SumTime = 0;
+
+  if(iterator == 0)
+    SumTime = 0;
 
   sData.angle = popAngle();
   if(iterator != 0) {
-    sData.time = popTime() - oldTime;
+    sData.time = popTime() - SumTime;
   }else {
     sData.time = popTime();
   }
-  oldTime = popTime();
+  SumTime += sData.time;
   sData.pin = popPin();
 
   iterator = (iterator < nServos - 1 ? ++iterator : 0);
