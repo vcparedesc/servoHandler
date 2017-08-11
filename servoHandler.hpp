@@ -5,6 +5,7 @@ struct servoData {
   float angle;
   float time;
   int pin;
+  bool isLastServo;
 };
 
 

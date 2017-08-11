@@ -44,6 +44,24 @@ int main(int argc, char **argv) {
     cout<<"Time: "<<servo.time<<endl;
   }
 
+  // If the angles are changed
+  cout<<"Changing the angles of the servomotors"<<endl;
+  angles[0] = 90;
+  angles[1] = 10;
+  angles[2] = 110;
+  angles[3] = 170;
+
+  cout<<"Ouput: "<<servohandler.setAngles(angles)<<endl;
+
+  for(int i = 0; i < 8; i++) {
+    servo = servohandler.popServo();
+    cout<<"Servo (pin): "<<servo.pin<<endl;
+    cout<<"Angle: "<<servo.angle<<endl;
+    cout<<"Time: "<<servo.time<<endl;
+  }
+
+
+
 
   return 0;
 }

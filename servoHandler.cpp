@@ -109,6 +109,12 @@ servoData servoHandler::popServo() {
   SumTime += sData.time;
   sData.pin = popPin();
 
+  if(iterator == nServos - 1) {
+    sData.isLastServo = true;
+  }else{
+    sData.isLastServo = false,
+  }
+
   iterator = (iterator < nServos - 1 ? ++iterator : 0);
   return sData;
 }
