@@ -97,6 +97,8 @@ servoData servoHandler::popServo() {
   servoData sData;
   static float SumTime = 0;
 
+  iterator = (iterator < nServos - 1 ? ++iterator : 0);
+
   if(iterator == 0)
     SumTime = 0;
 
@@ -115,7 +117,7 @@ servoData servoHandler::popServo() {
     sData.isLastServo = false;
   }
 
-  iterator = (iterator < nServos - 1 ? ++iterator : 0);
+
   return sData;
 }
 
@@ -140,7 +142,7 @@ int servoHandler::setPins(vector<int> indexed_list) {
 }
 
 int servoHandler::reset() {
-  iterator = 0;
+  iterator = -1;
   return 0;
 }
 
