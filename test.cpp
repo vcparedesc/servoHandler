@@ -16,6 +16,7 @@ int main(int argc, char **argv) {
   vector<float> angles(3,0);
   servoData servo;
   int pointIdx = 0;
+  bool isFinished = false;
 
   servo_pins[0] = 13;
   servo_pins[1] = 14;
@@ -38,18 +39,31 @@ int main(int argc, char **argv) {
       }
       // Starting Servo sequence
       servoManager->reset();
+      isFinished = false;
       servo = servoManager->popServo();
+      // Starting first timer
 
-      for(int w = 0; w < 2; w++) {
-        cout<<"servo - pin: "<<servo.pin<<endl;
-        cout<<"servo - time: "<<servo.time<<endl;
-      }
+      // (Second Timer) Simulating timer calls:
+      do{
 
+        int nz = servoManager->nZeroTimeServos();
+        for(int ss = 0; ss < nz; ss++) {
+          cout<<"servo.pin: "<<servo.pin<<endl;
+          cout<<"servo.time (elapsed): "<<servo.time<<endl;
+          if(ss < nz - 1) {
+            servo = servoManager->popServo();
+          }
+        }
+
+        if(!servo.isLastServo) {
+          servo = servoManager->popServo();
+        } else {
+          isFinished = true;
+        }
+        char x;
+        cin>> x;
+      }while(!isFinished);
     }
   }
-
-
-
-
   return 0;
 }

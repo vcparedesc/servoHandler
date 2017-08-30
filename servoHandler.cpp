@@ -136,6 +136,19 @@ int servoHandler::sortTimes() {
   return 0;
 }
 
+int servoHandler::nZeroTimeServos() {
+  int count = 1;
+  for(int i = iterator + 1; i < nServos; i++) {
+    if(time_vector[iterator] == time_vector[i]) {
+      count ++;
+    }else{
+      break;
+    }
+  }
+
+  return count;
+}
+
 int servoHandler::setPins(vector<int> indexed_list) {
   fixed_index_vector = indexed_list;
   return 0;
