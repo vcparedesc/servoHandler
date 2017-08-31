@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
   servo_pins[1] = 14;
   servo_pins[2] = 15;
 
-  servoManager = new servoHandler(3, servo_pins, 1, 2);
+  servoManager = new servoHandler(3, servo_pins, 1, 2, 2);
 
   for(int k = 0; k < 2; k++) {
     for(int i = 0; i < 158 - 1; i++) {

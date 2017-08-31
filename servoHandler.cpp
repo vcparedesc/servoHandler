@@ -30,7 +30,15 @@ template <typename T> inline void swapper(T &a, T &b) {
   b = temp;
 }
 
-servoHandler::servoHandler(int nServos, vector<int> indexed_list, float min_ms, float max_ms) :  MIN_ms(min_ms), MAX_ms(max_ms), iterator(0), nServos(nServos) {
+inline int xpow(int base, int expn) {
+  if(expn == 0) {
+    return 1;
+  }else{
+    return base * xpow(base, expn - 1);
+  }
+}
+
+servoHandler::servoHandler(int nServos, vector<int> indexed_list, float min_ms, float max_ms, int resolution) :  MIN_ms(min_ms), MAX_ms(max_ms), iterator(0), nServos(nServos), timeResolution(resolution) {
 
   // Checking that the dimensions of angle list wrt nServos
   assert(nServos == indexed_list.size());
@@ -48,9 +56,10 @@ int servoHandler::setAngles(vector<float> angles) {
 
   for(int i = 0; i < nServos; i++) {
     time_vector[i] = MIN_ms + (MAX_ms - MIN_ms) * (angle_vector[i] / 180.0);
-    if(time_vector[i] < MIN_ms || time_vector[i] > MAX_ms) {
+    if(time_vector[i] < MIN_ms || time_vector[i]  > MAX_ms) {
       return -1;
     }
+    time_vector[i] = ((int)(time_vector[i] * xpow(10, timeResolution)));
   }
 
   sortTimes();
@@ -65,6 +74,8 @@ int servoHandler::setTimes(vector<float> times) {
     if(angle_vector[i] > 180 || angle_vector[i] < 0) {
       return -1;
     }
+    time_vector[i] = ((int)(time_vector[i] * xpow(10, timeResolution))) / (float)xpow(10,timeResolution);
+    return 0;
   }
 
   sortTimes();
@@ -104,11 +115,11 @@ servoData servoHandler::popServo() {
 
   sData.angle = popAngle();
   if(iterator != 0) {
-    sData.time = popTime() - SumTime;
+    sData.time = (popTime() - SumTime) / (float)xpow(10,timeResolution);
   }else {
-    sData.time = popTime();
+    sData.time = popTime() / (float)xpow(10,timeResolution);
   }
-  SumTime += sData.time;
+  SumTime += sData.time * (int)xpow(10,timeResolution);
   sData.pin = popPin();
 
   if(iterator == nServos - 1) {

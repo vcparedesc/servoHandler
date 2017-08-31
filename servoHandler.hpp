@@ -12,9 +12,11 @@ struct servoData {
 class servoHandler {
   // I can foresee that some servos might have different signal time   // ranges, but for now i am not considering that case.
 public:
-  servoHandler(int nServos, vector<int> indexed_list, float min_ms, float max_ms);
+  servoHandler(int nServos, vector<int> indexed_list, float min_ms, float max_ms, int resolution);
   ~servoHandler() {};
 private:
+  int timeResolution;
+
   int sortTimes();
   float popAngle();
   float popTime();
